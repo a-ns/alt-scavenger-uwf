@@ -10,7 +10,7 @@ const bodyParser = require('body-parser')
 let mongoose = require('mongoose')
 var Scobject = require('./models/scobject')
 
-mongoose.connect('mongodb://<user>:<password>@ds117839.mlab.com:17839/alt-scavenger')
+mongoose.connect(process.env.MONGODB_URI)
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -27,6 +27,8 @@ router.use(function (req, res, next) {
   console.log('This needs to do logging stuff')
   next()
 })
+
+
 
 app.get('/', function (req, res) {
   res.json({message: 'Index page. Go away'})
