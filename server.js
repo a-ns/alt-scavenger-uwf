@@ -11,6 +11,8 @@ let mongoose = require('./mongoose/mongoose.js')
 var Scobject = require('./models/scobject')
 let router = require('./router/router.js')
 
+mongoose.connect(process.env.MONGODB_URI)
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -18,11 +20,20 @@ app.use(bodyParser.json())
 
 let port = process.env.PORT || 8080        // set our port
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+// ROUTES FOR OUR API
+// =============================================================================
+let router = express.Router()              // get an instance of the express Router
 
+router.use(function (req, res, next) {
+  console.log('This needs to do logging stuff')
+  next()
+})
+
+
+app.get('/', function (req, res) {
+  res.json({message: 'Index page. Go away'})
+})
 // more routes for our API will happen here
-
-
 
 router.route('/scobjects/:scobject_id')
       .get(function (req, res) {
