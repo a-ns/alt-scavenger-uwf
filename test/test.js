@@ -16,4 +16,13 @@ describe('Route Handlers', function () {
         })
   })
 
+  it('GET on /api/scobjects should return array of objects', function (done) {
+    chai.request(server)
+        .get('/api/scobjects')
+        .end(function(err, res) {
+          res.should.have.status(200)
+          done()
+        })
+  })
+
 })

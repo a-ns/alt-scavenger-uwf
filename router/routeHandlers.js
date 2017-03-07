@@ -1,4 +1,5 @@
-var Scobject = require('../models/scobject')
+var Scobject = require('../models/scobject.js')
+let db = require('../mongoose/db.js')
 
 var getApiDefault = function (req, res) {
   res.json({ message: 'hooray! welcome to our api!' })
