@@ -10,9 +10,6 @@ const bodyParser = require('body-parser')
 let mongoose = require('./mongoose/mongoose.js')
 var Scobject = require('./models/scobject')
 let router = require('./router/router.js')
-
-mongoose.connect(process.env.MONGODB_URI)
-
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -21,13 +18,6 @@ app.use(bodyParser.json())
 let port = process.env.PORT || 8080        // set our port
 
 // ROUTES FOR OUR API
-// =============================================================================
-let router = express.Router()              // get an instance of the express Router
-
-router.use(function (req, res, next) {
-  console.log('This needs to do logging stuff')
-  next()
-})
 
 
 app.get('/', function (req, res) {
@@ -79,3 +69,5 @@ app.use('/api', router)
 // =============================================================================
 app.listen(port)
 console.log('Magic happens on port ' + port)
+
+module.exports = app
