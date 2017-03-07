@@ -3,7 +3,7 @@ let router = express.Router()
 let routes = require('./routeHandlers.js')
 
 router.use(function (req, res, next) {
-  console.log('This needs to do logging stuff')
+  //stuff here maybe
   next()
 })
 
