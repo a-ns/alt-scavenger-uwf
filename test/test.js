@@ -20,7 +20,7 @@ describe('Route Handlers', function () {
     chai.request(server)
         .get('/api/scobjects')
         .end(function(err, res) {
-          res.should.have.status(200)
+          res.body.should.be.a('array')
           done()
         })
   })
