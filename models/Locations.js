@@ -5,16 +5,28 @@ let options = { discriminatoryKey: 'kind' }
 
 let locationSchema = new Schema(
   {
-    uuid: String,
-    desc: String,
-    building: String,
+    uuid: {
+        type: String,
+        required: true
+      },
+    desc: {
+        type: String,
+        required: true
+      },
+    building: {
+        type: String,
+        required: true
+      },
   }, options)
 
 let Location = mongoose.model('Location', locationSchema)
 
 let insideLocationSchema = new Schema(
   {
-    room: String,
+    room: {
+        type: String,
+        required: true
+      },
   }, options)
 
 let InsideLocation = Location.discriminator('InsideLocation', insideLocationSchema)

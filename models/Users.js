@@ -5,8 +5,14 @@ let options = { discriminatoryKey: 'kind' }
 
 let userSchema = new Schema(
   {
-    uuid: String,
-    name: String,
+    uuid: {
+        type: String,
+        required: true
+      },
+    name: {
+        type: String,
+        required: true
+      },
     currentLocation: { type: Schema.ObjectId, ref: 'Location' }
 
   }, options)
@@ -21,8 +27,14 @@ let studentSchema = new Schema(
 let facultySchema = new Schema(
   {
     office: { type: Schema.ObjectId, ref: 'Location' },
-    dept: String,
-    desc: String,
+    dept: {
+        type: String,
+        required: true
+      },
+    desc: {
+        type: String,
+        required: true
+      },
     misc: [String]
   }, options)
 
