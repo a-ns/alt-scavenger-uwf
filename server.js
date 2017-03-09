@@ -7,6 +7,7 @@
 const express = require('express')        // call express
 const app = express()                 // define our app using express
 const bodyParser = require('body-parser')
+require('./mongoose/db.js')
 let router = require('./router/router.js')
 // configure app to use bodyParser()
 // this will let us get the data from a POST
