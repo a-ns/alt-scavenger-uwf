@@ -19,6 +19,7 @@ let insideLocationSchema = new Schema(
 
 let InsideLocation = Location.discriminator('InsideLocation', insideLocationSchema)
 
-let OutsideLocation = Location.discriminator('OutsideLocation', {})
+let outsideLocationSchema = new Schema({}, options)
+let OutsideLocation = Location.discriminator('OutsideLocation', outsideLocationSchema)
 
-module.exports = { Location , InsideLocation, OutsideLocation}
+module.exports = { Location, InsideLocation, OutsideLocation }

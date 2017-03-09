@@ -7,7 +7,7 @@ let userSchema = new Schema(
   {
     uuid: String,
     name: String,
-    currentLocation: { type: Schema.ObjectId, ref: 'Location'}
+    currentLocation: { type: Schema.ObjectId, ref: 'Location' }
 
   }, options)
 
@@ -15,12 +15,12 @@ let User = mongoose.model('Location', userSchema)
 
 let studentSchema = new Schema(
   {
-    visitedLocations: [{ type: Schema.ObjectId, ref: 'Location'}]
+    visitedLocations: [{ type: Schema.ObjectId, ref: 'Location' }]
   }, options)
 
 let facultySchema = new Schema(
   {
-    office: { type: Schema.ObjectId, ref: 'Location'},
+    office: { type: Schema.ObjectId, ref: 'Location' },
     dept: String,
     desc: String,
     misc: [String]

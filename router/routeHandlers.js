@@ -1,31 +1,75 @@
-var Scobject = require('../models/scobject.js')
+let uuidV4 = require('uuid/v4')
+
+let Locations = require('../models/Locations.js')
 let db = require('../mongoose/db.js')
 
-var getApiDefault = function (req, res) {
+var apiGet = function (req, res) {
   res.json({ message: 'hooray! welcome to our api!' })
 }
 
-var scobjectsPost = function (req, res) {
-  var scobject = new Scobject()
-  scobject.name = req.body.name
-  console.log(scobject)
-  scobject.save(function (err) {
+var locationsGet = function (req, res) {
+  Locations.Location.find(function (err, locations) {
+    if (err) {
+      res.send(err)
+    }
+    res.json(locations)
+  })
+}
+
+var outsideLocationsPost = function (req, res) {
+  var outsideLocation = new Locations.OutsideLocation()
+  outsideLocation.room = req.body.room
+  outsideLocation.uuid = uuidV4()
+  outsideLocation.desc = req.body.desc
+  outsideLocation.building = req.body.building
+
+  outsideLocation.save(function (err) {
     if (err) {
       res.send('Something went wrong')
     }
     else {
-      res.json({message: 'Scobject created'})
+      res.json({message: 'Location created successfully.',
+                uuid: outsideLocation.uuid
+                })
     }
   })
 }
 
-var scobjectsGet = function (req, res) {
-  Scobject.find(function (err, scobjects) {
+var outsideLocationsGet = function (req, res) {
+  Locations.OutsideLocation.find(function (err, location) {
     if (err) {
       res.send(err)
     }
-    res.json(scobjects)
+    res.json(location)
   })
 }
 
-module.exports = {getApiDefault, scobjectsPost, scobjectsGet}
+var insideLocationsPost = function (req, res) {
+  var insideLocation = new Locations.InsideLocation()
+  insideLocation.room = req.body.room
+  insideLocation.uuid = uuidV4()
+  insideLocation.desc = req.body.desc
+  insideLocation.building = req.body.building
+
+  insideLocation.save(function (err) {
+    if (err) {
+      res.send('Something went wrong')
+    }
+    else {
+      res.json({message: 'Location created successfully.',
+                uuid: insideLocation.uuid
+                })
+    }
+  })
+}
+
+var insideLocationsGet = function (req, res) {
+  Locations.InsideLocation.find(function (err, location) {
+    if (err) {
+      res.send(err)
+    }
+    res.json(location)
+  })
+}
+
+module.exports = { outsideLocationsPost, outsideLocationsGet, locationsGet, insideLocationsGet, insideLocationsPost, apiGet }
