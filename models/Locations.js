@@ -1,7 +1,7 @@
 let mongoose = require('mongoose')
 let Schema = mongoose.Schema
 
-let options = { discrimnatoryKey: 'kind' }
+let options = { discriminatoryKey: 'kind' }
 
 let locationSchema = new Schema(
   {
