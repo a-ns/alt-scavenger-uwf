@@ -11,6 +11,7 @@ router.get('/', routes.apiGet)
 
 router.route('/locations')
       .get(routes.locationsGet)
+      .post(routes.locationsPost)
 
 router.route('/locations/inside')
       .post(routes.insideLocationsPost)
@@ -21,5 +22,8 @@ router.route('/locations/inside')
 router.route('/locations/outside')
       .post(routes.outsideLocationsPost)
       .get(routes.outsideLocationsGet)
+
+router.route('/locations/outside/:uuid')
+      .get(routes.specificOutsideLocationGet)
 
 module.exports = router

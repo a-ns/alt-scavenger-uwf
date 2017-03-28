@@ -72,4 +72,19 @@ var insideLocationsGet = function (req, res) {
   })
 }
 
-module.exports = { outsideLocationsPost, outsideLocationsGet, locationsGet, insideLocationsGet, insideLocationsPost, apiGet }
+var locationsPost = function (req, res) {
+  res.status(400).send('Error: POST only available on /api/locations/inside or /api/locations/outside')
+}
+
+var specificOutsideLocationGet = function(req, res) {
+  Locations.OutsideLocation.findOne({uuid: req.params.uuid}, function (err, outsideLocation){
+    if (err || outsideLocation == null) {
+      res.status(404).send()
+    }
+    else {
+      res.json(outsideLocation)
+    }
+  })
+}
+
+module.exports = { outsideLocationsPost, outsideLocationsGet, locationsGet, insideLocationsGet, insideLocationsPost, apiGet , locationsPost , specificOutsideLocationGet}
