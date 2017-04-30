@@ -1,7 +1,7 @@
 let uuidV4 = require('uuid/v4')
 
 let Locations = require('../models/Locations.js')
-let db = require('../mongoose/db.js')
+let db = require('../db/db.js')
 
 var apiGet = function (req, res) {
   res.json({ message: 'hooray! welcome to our api!' })
