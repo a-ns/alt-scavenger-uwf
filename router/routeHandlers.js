@@ -47,7 +47,7 @@ var locationsPut = function (req, res) {
     if (req.body.building) {
       updateData.building = req.body.building
     }
-    Locations.Location.findOneAndUpdate(query, updateData, {new: true}, function (err, doc) {
+    Locations.Location.findOneAndUpdate(query, updateData, function (err, doc) {
       if(err) {
         console.log(err)
         res.status(500).send('Internal server error')
