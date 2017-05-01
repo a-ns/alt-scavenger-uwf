@@ -16,6 +16,49 @@ var locationsGet = function (req, res) {
   })
 }
 
+var locationsDelete = function (req, res) {
+  if (!req.body.uuid) {
+    res.status(400).send('UUID required')
+  }
+  else {
+    var query = { 'uuid': req.body.uuid}
+    Locations.Location.findOneAndRemove(query, function (err, doc, result) {
+      if (err) {
+        console.log(err)
+        res.status(500).send()
+      }
+      else {
+        res.send(doc + 'deleted')
+      }
+    })
+  }
+}
+
+var locationsPut = function (req, res) {
+  if (!req.body.uuid) {
+    res.status(400).send('UUID required')
+  }
+  else {
+    var query = { 'uuid': req.body.uuid }
+    var updateData = {}
+    if (req.body.desc) {
+      updateData.desc = req.body.desc
+    }
+    if (req.body.building) {
+      updateData.building = req.body.building
+    }
+    Locations.Location.findOneAndUpdate(query, updateData, {new: true}, function (err, doc) {
+      if(err) {
+        console.log(err)
+        res.status(500).send('Internal server error')
+      }
+      else {
+        res.json(doc)
+      }
+    })
+  }
+}
+
 var outsideLocationsPost = function (req, res) {
   var outsideLocation = new Locations.OutsideLocation()
   outsideLocation.room = req.body.room
@@ -53,7 +96,7 @@ var insideLocationsPost = function (req, res) {
 
   insideLocation.save(function (err) {
     if (err) {
-      res.send('Something went wrong')
+      res.send(err)
     }
     else {
       res.json({message: 'Location created successfully.',
@@ -87,4 +130,4 @@ var specificOutsideLocationGet = function(req, res) {
   })
 }
 
-module.exports = { outsideLocationsPost, outsideLocationsGet, locationsGet, insideLocationsGet, insideLocationsPost, apiGet , locationsPost , specificOutsideLocationGet}
+module.exports = { locationsDelete, locationsPut, outsideLocationsPost, outsideLocationsGet, locationsGet, insideLocationsGet, insideLocationsPost, apiGet , locationsPost , specificOutsideLocationGet}
