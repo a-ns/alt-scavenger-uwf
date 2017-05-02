@@ -7,6 +7,11 @@ var apiGet = function (req, res) {
   res.json({ message: 'hooray! welcome to our api!' })
 }
 
+
+/*
+* Route handler for GET /api/locations
+* Returns all the locations
+*/
 var locationsGet = function (req, res) {
   Locations.Location.find(function (err, locations) {
     if (err) {
@@ -16,6 +21,12 @@ var locationsGet = function (req, res) {
   })
 }
 
+/*
+* Route handler for DELETE /api/locations
+* Remove an object
+* Returns the old copy
+* @required UUID of object to delete
+*/
 var locationsDelete = function (req, res) {
   if (!req.body.uuid) {
     res.status(400).send('UUID required')
@@ -34,6 +45,12 @@ var locationsDelete = function (req, res) {
   }
 }
 
+/*
+* Route handler for PUT /api/locations
+* Updates information of an object
+* @required UUID of object to update
+* @params [desc], [building], [room]
+*/
 var locationsPut = function (req, res) {
   if (!req.body.uuid) {
     res.status(400).send('UUID required')
@@ -62,9 +79,13 @@ var locationsPut = function (req, res) {
   }
 }
 
+/*
+* Route handler for POST /api/locations/outside
+* Adds a new Outside Location
+* @params [desc], [building]
+*/
 var outsideLocationsPost = function (req, res) {
   var outsideLocation = new Locations.OutsideLocation()
-  outsideLocation.room = req.body.room
   outsideLocation.uuid = uuidV4()
   outsideLocation.desc = req.body.desc
   outsideLocation.building = req.body.building
@@ -81,6 +102,10 @@ var outsideLocationsPost = function (req, res) {
   })
 }
 
+/*
+* Route handler for GET /api/locations/outside
+* Returns all the outside locations
+*/
 var outsideLocationsGet = function (req, res) {
   Locations.OutsideLocation.find(function (err, location) {
     if (err) {
@@ -90,6 +115,11 @@ var outsideLocationsGet = function (req, res) {
   })
 }
 
+/*
+* Route handler for POST /api/locations/inside
+* Adds a new object
+* @params [desc], [building], [room]
+*/
 var insideLocationsPost = function (req, res) {
   var insideLocation = new Locations.InsideLocation()
   insideLocation.room = req.body.room
@@ -109,6 +139,10 @@ var insideLocationsPost = function (req, res) {
   })
 }
 
+/*
+* Route handler for GET /api/locations/inside
+* returns all the inside locations
+*/
 var insideLocationsGet = function (req, res) {
   Locations.InsideLocation.find(function (err, location) {
     if (err) {
@@ -122,6 +156,10 @@ var locationsPost = function (req, res) {
   res.status(400).send('Error: POST only available on /api/locations/inside or /api/locations/outside')
 }
 
+/*
+* Route handler for GET /api/locations/outside/:uuid
+* Return a specific outside location
+*/
 var specificOutsideLocationGet = function(req, res) {
   Locations.OutsideLocation.findOne({uuid: req.params.uuid}, function (err, outsideLocation){
     if (err || outsideLocation == null) {
